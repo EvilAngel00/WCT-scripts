@@ -1,0 +1,61 @@
+WCA Competition Announcement Thread for Week 18 of 2018
+
+Hi /r/cubers!
+
+Here is the list of competitions announced since Monday 2018-04-30. For more information please visit the corresponding websites :)
+
+Disclaimer: continents correspond to the WCA interpretation. The full list can be found [here](https://raw.githubusercontent.com/thewca/worldcubeassociation.org/master/WcaOnRails/config/wca-states.json).
+
+(Dates are year-month-day)
+
+##Africa
+
+Country|City|Name|Start Date|End Date|Website
+:--|:--|:--|:--|:--|:--
+Tunisia|Sousse|Chachya Open Rotary Edition 2018|2018-06-30|2018-07-01|[Link](https://www.worldcubeassociation.org/competitions/ChachyaOpenRotaryEdition2018)
+
+##Asia
+
+Country|City|Name|Start Date|End Date|Website
+:--|:--|:--|:--|:--|:--
+China|Shijiazhuang, Hebei|Shijiazhuang Open 2018|2018-06-10|2018-06-10|[Link](https://www.worldcubeassociation.org/competitions/ShijiazhuangOpen2018)
+China|Tangshan, Hebei|Tangshan Open 2018|2018-06-17|2018-06-17|[Link](https://www.worldcubeassociation.org/competitions/TangshanOpen2018)
+China|Zhongshan, Guangdong|Zhongshan Children's Cube Day 2018|2018-06-02|2018-06-02|[Link](https://www.worldcubeassociation.org/competitions/ZhongshanChildrensCubeDay2018)
+Indonesia|Makassar, Sulawesi Selatan|Celebes Open 2018|2018-06-30|2018-07-01|[Link](https://www.worldcubeassociation.org/competitions/CelebesOpen2018)
+Indonesia|Medan, North Sumatra|Medan All Events 2018|2018-07-06|2018-07-08|[Link](https://www.worldcubeassociation.org/competitions/MedanAllEvents2018)
+Indonesia|Tangerang|Tangerang Open 2018|2018-07-15|2018-07-15|[Link](https://www.worldcubeassociation.org/competitions/TangerangOpen2018)
+
+##Europe
+
+Country|City|Name|Start Date|End Date|Website
+:--|:--|:--|:--|:--|:--
+Belarus|Minsk|GeniusKid Belarus 2018|2018-05-26|2018-05-27|[Link](https://www.worldcubeassociation.org/competitions/GeniusKidBelarus2018)
+Estonia|Tallinn|Tallinn Open 2018|2018-06-30|2018-06-30|[Link](https://www.worldcubeassociation.org/competitions/TallinnOpen2018)
+Georgia|Tbilisi|Georgia Open 2018|2018-06-15|2018-06-15|[Link](https://www.worldcubeassociation.org/competitions/GeorgiaOpen2018)
+Poland|Lublin|Lubelska Liga Speedcubingu VI 2018|2018-06-30|2018-06-30|[Link](https://www.worldcubeassociation.org/competitions/LLSVI2018)
+Ukraine|Kiev|Ukrainian Open 2018|2018-06-01|2018-06-03|[Link](https://www.worldcubeassociation.org/competitions/UkrainianOpen2018)
+
+##North America
+
+Country|City|Name|Start Date|End Date|Website
+:--|:--|:--|:--|:--|:--
+Canada|Saint John, New Brunswick|Saint John 2018|2018-09-15|2018-09-15|[Link](https://www.worldcubeassociation.org/competitions/SaintJohn2018)
+United States|Ann Arbor, Michigan|Michigan Cubing Club Gamma 2018|2018-06-17|2018-06-17|[Link](https://www.worldcubeassociation.org/competitions/MichiganCubingClubGamma2018)
+United States|New Hope, Pennsylvania|New Hope Open Spring 2018|2018-06-16|2018-06-16|[Link](https://www.worldcubeassociation.org/competitions/NewHopeOpenSpring2018)
+United States|Portland, Oregon|Rose City 2018|2018-06-08|2018-06-09|[Link](https://www.worldcubeassociation.org/competitions/RoseCity2018)
+
+##Oceania
+
+Country|City|Name|Start Date|End Date|Website
+:--|:--|:--|:--|:--|:--
+Australia|Melbourne|Melbourne Winter 2018|2018-06-02|2018-06-03|[Link](https://www.worldcubeassociation.org/competitions/MelbourneWinter2018)
+
+##South America
+
+Country|City|Name|Start Date|End Date|Website
+:--|:--|:--|:--|:--|:--
+Brazil|Brasília, DF|Brasília Winter 2018|2018-08-25|2018-08-26|[Link](https://www.worldcubeassociation.org/competitions/BrasiliaWinter2018)
+Chile|Santiago|Colegio Arabe Open 2018|2018-06-02|2018-06-02|[Link](https://www.worldcubeassociation.org/competitions/ColegioArabeOpen2018)
+Ecuador|Tabacundo|Tabacundo Open 2018|2018-06-09|2018-06-09|[Link](https://www.worldcubeassociation.org/competitions/TabacundoOpen2018)
+Peru|Arequipa|TCG Fall 2018|2018-06-02|2018-06-02|[Link](https://www.worldcubeassociation.org/competitions/TCGFall2018)
+
