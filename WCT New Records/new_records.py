@@ -194,7 +194,7 @@ def compareRecords(records_json_folder, export_folder, persons_dict):
 
     wr_type = "average_records_world"
     for event in all_records_new[wr_type].keys():
-        if all_records_new[wr_type][event] != all_records_past[wr_type][event]:
+        if sorted(all_records_new[wr_type][event]) != sorted(all_records_past[wr_type][event]):
             if len(all_records_new[wr_type][event]) > 1:
                     current_wrs = set(tuple(x) for x in all_records_new[wr_type][event])
                     past_wrs = set(tuple(x) for x in all_records_past[wr_type][event])
@@ -211,7 +211,7 @@ def compareRecords(records_json_folder, export_folder, persons_dict):
     cr_type = "single_records_by_continent"
     for continent in all_records_new[cr_type].keys():
         for event in all_records_new[cr_type][continent].keys():
-            if all_records_new[cr_type][continent][event] != all_records_past[cr_type][continent][event]:
+            if sorted(all_records_new[cr_type][continent][event]) != sorted(all_records_past[cr_type][continent][event]):
                 new = set(["lala"])
                 if "World" in all_records_diff and event in all_records_diff["World"]:
                     current = set(tuple(x) for x in all_records_new[cr_type][continent][event])
@@ -238,7 +238,7 @@ def compareRecords(records_json_folder, export_folder, persons_dict):
     cr_type = "average_records_by_continent"
     for continent in all_records_new[cr_type].keys():
         for event in all_records_new[cr_type][continent].keys():
-            if all_records_new[cr_type][continent][event] != all_records_past[cr_type][continent][event]:
+            if sorted(all_records_new[cr_type][continent][event]) != sorted(all_records_past[cr_type][continent][event]):
                 new = set(["lala"])
                 if "World" in all_records_diff and event in all_records_diff["World"]:
                     current = set(tuple(x) for x in all_records_new[cr_type][continent][event])
@@ -265,7 +265,7 @@ def compareRecords(records_json_folder, export_folder, persons_dict):
     nr_type = "single_records_by_country"
     for country in all_records_new[nr_type].keys():
         for event in all_records_new[nr_type][country].keys():
-            if all_records_new[nr_type][country][event] != all_records_past[nr_type][country][event]:
+            if country not in all_records_past[nr_type] or event not in all_records_past[nr_type][country] or sorted(all_records_new[nr_type][country][event]) != sorted(all_records_past[nr_type][country][event]):
                 continent = countryId_continent[country][1]
                 new_wr = set(["lala"])
                 new_cr = set(["lala"])
@@ -300,7 +300,7 @@ def compareRecords(records_json_folder, export_folder, persons_dict):
     nr_type = "average_records_by_country"
     for country in all_records_new[nr_type].keys():
         for event in all_records_new[nr_type][country].keys():
-            if all_records_new[nr_type][country][event] != all_records_past[nr_type][country][event]:
+            if country not in all_records_past[nr_type] or event not in all_records_past[nr_type][country] or sorted(all_records_new[nr_type][country][event]) != sorted(all_records_past[nr_type][country][event]):
                 continent = countryId_continent[country][1]
                 new_wr = set(["lala"])
                 new_cr = set(["lala"])
@@ -332,6 +332,7 @@ def compareRecords(records_json_folder, export_folder, persons_dict):
                         all_records_diff["National"][country][event] = []
                     all_records_diff["National"][country][event] = all_records_diff["National"][country][event] + [x + ["Average"] for x in new_records]
 
+    print all_records_diff
     return all_records_diff
 
 # Get a formatted text version of the result
@@ -413,7 +414,7 @@ def writeRecordsReddit(all_records_diff, persons_dict, events_dict):
 
     if "Continental" in all_records_diff:
         f.write(u'# Continental Records\n')
-        for continent in all_records_diff["Continental"]:
+        for continent in sorted(all_records_diff["Continental"].keys()):
             f.write(u'\n**' + continent + u'**' + u'\n\n')
             for event in all_records_diff["Continental"][continent]:
                 for record in all_records_diff["Continental"][continent][event]:
@@ -422,7 +423,7 @@ def writeRecordsReddit(all_records_diff, persons_dict, events_dict):
 
     if "National" in all_records_diff:
         f.write(u'# National Records\n')
-        for country in all_records_diff["National"]:
+        for country in sorted(all_records_diff["National"].keys()):
             f.write(u'\n**' + country + u'**' + u'\n\n')
             for event in all_records_diff["National"][country]:
                 for record in all_records_diff["National"][country][event]:
@@ -514,11 +515,9 @@ if url_date > utc.localize(file_time):
     writeJSON(all_records, json_folder)
 else:
     print "Local WCA Database Export is the latest version"
-    '''
     persons_dict, events_dict = getPersonsEvents(export_folder)
     all_records_diff = compareRecords(json_folder, export_folder, persons_dict)
     writeRecordsReddit(all_records_diff, persons_dict, events_dict)
     writeRecordsFacebook(all_records_diff, persons_dict, events_dict)
     all_records = getAllRecords(export_folder, persons_dict)
     writeJSON(all_records, json_folder)
-    '''
