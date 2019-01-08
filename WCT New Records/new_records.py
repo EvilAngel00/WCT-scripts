@@ -57,7 +57,9 @@ def getPersonsEvents(export_folder):
 
     persons_dict = {}
     for person in persons:
-        persons_dict[person[0]] = {'name': person[2], 'countryId': person[3]}
+        # If person has changed citizenship, only keeps the last one
+        if person[1] == "1":
+            persons_dict[person[0]] = {'name': person[2], 'countryId': person[3]}
 
     events = []
     with open(export_folder + "/WCA_export_Events.tsv") as f:
@@ -101,52 +103,53 @@ def updateRecords(export_folder, type, persons_dict):
 
     for result in ranks:
         person_id = result[0]
-        person = persons_dict[person_id]
-        country = person['countryId']
-        continent = countryId_continent[country][1]
-        event = result[1]
-        best = result[2]
+        if person_id in persons_dict:
+            person = persons_dict[person_id]
+            country = person['countryId']
+            continent = countryId_continent[country][1]
+            event = result[1]
+            best = result[2]
 
-        # Get best records per country
-        if country in records_by_country:
-            current_records = records_by_country[country]
-            if event in current_records:
-                # If record is better, replace old one
-                if int(current_records[event][0][1]) > int(best):
+            # Get best records per country
+            if country in records_by_country:
+                current_records = records_by_country[country]
+                if event in current_records:
+                    # If record is better, replace old one
+                    if int(current_records[event][0][1]) > int(best):
+                        current_records[event] = [[person_id, best]]
+                    # If record is tied, append to list
+                    elif int(current_records[event][0][1]) == int(best):
+                        current_records[event] = current_records[event] + [[person_id, best]]
+                else:
                     current_records[event] = [[person_id, best]]
-                # If record is tied, append to list
-                elif int(current_records[event][0][1]) == int(best):
-                    current_records[event] = current_records[event] + [[person_id, best]]
+
             else:
-                current_records[event] = [[person_id, best]]
+                records_by_country[country] = {}
+                records_by_country[country][event] = [[person_id, best]]
 
-        else:
-            records_by_country[country] = {}
-            records_by_country[country][event] = [[person_id, best]]
-
-        # Get best records per continent
-        if continent in records_by_continent:
-            current_records = records_by_continent[continent]
-            if event in current_records:
-                if int(current_records[event][0][1]) > int(best):
+            # Get best records per continent
+            if continent in records_by_continent:
+                current_records = records_by_continent[continent]
+                if event in current_records:
+                    if int(current_records[event][0][1]) > int(best):
+                        current_records[event] = [[person_id, best]]
+                    elif int(current_records[event][0][1]) == int(best):
+                        current_records[event] = current_records[event] + [[person_id, best]]
+                else:
                     current_records[event] = [[person_id, best]]
-                elif int(current_records[event][0][1]) == int(best):
-                    current_records[event] = current_records[event] + [[person_id, best]]
+
             else:
-                current_records[event] = [[person_id, best]]
+                records_by_continent[continent] = {}
+                records_by_continent[continent][event] = [[person_id, best]]
 
-        else:
-            records_by_continent[continent] = {}
-            records_by_continent[continent][event] = [[person_id, best]]
-
-        # Get World Records
-        if event in records_world:
-            if int(records_world[event][0][1]) > int(best):
+            # Get World Records
+            if event in records_world:
+                if int(records_world[event][0][1]) > int(best):
+                    records_world[event] = [[person_id, best]]
+                elif int(records_world[event][0][1]) == int(best):
+                    records_world[event] = records_world[event] + [[person_id, best]]
+            else:
                 records_world[event] = [[person_id, best]]
-            elif int(records_world[event][0][1]) == int(best):
-                records_world[event] = records_world[event] + [[person_id, best]]
-        else:
-            records_world[event] = [[person_id, best]]
 
     return records_by_country, records_by_continent, records_world
 
@@ -351,7 +354,7 @@ def getFormattedTime(time, event, single_avg):
         if single_avg == 'Single':
             ret = time + " moves"
         else:
-            ret = str(int(time)/100) + " moves"
+            ret = str(float(time)/100) + " moves"
     elif event == '3x3x3 Multi-Blind':
         difference = 99 - int(time[0:2])
         mbf_time = int(time[2:7])
