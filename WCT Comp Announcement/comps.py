@@ -26,7 +26,7 @@ f.write(u'WCA Competition Announcement Thread for Week ' + str(week_ago.isocalen
 f.write(u'\n')
 f.write(u'\n')
 
-template = [u'Hi /r/cubers!', u'\n\n', 'Here is the list of competitions announced since Monday ' + week_ago.strftime("%Y-%m-%d") + u'. For more information please visit the corresponding websites :)', u'\n\n', u'Disclaimer: continents correspond to the WCA interpretation. The full list can be found [here](https://raw.githubusercontent.com/thewca/worldcubeassociation.org/master/WcaOnRails/config/wca-states.json).', u'\n\n', u'(Dates are year-month-day)', u'\n\n']
+template = [u'Hi /r/cubers!', u'\n\n', 'Here is the list of competitions announced since Tuesday ' + week_ago.strftime("%Y-%m-%d") + u'. For more information please visit the corresponding websites :)', u'\n\n', u'Disclaimer: continents correspond to the WCA interpretation. The full list can be found [here](https://raw.githubusercontent.com/thewca/worldcubeassociation.org/master/WcaOnRails/config/wca-states.json).', u'\n\n', u'(Dates are year-month-day)', u'\n\n']
 
 f.writelines(template)
 
@@ -43,7 +43,7 @@ continents = {"Africa": [], "Asia": [], "Europe": [], "North America": [], "Ocea
 # If there is a key error it might be a multiple cities comp in a continent not added
 # or comp['country_iso2'] == u'XM' needs to be added 2 lines below with XM replaced by the new key
 for comp in data:
-    if comp['country_iso2'] == u'XA' or comp['country_iso2'] == u'XM':
+    if comp['country_iso2'] == u'XA' or comp['country_iso2'] == u'XM' or comp['country_iso2'] == u'XE' or comp['country_iso2'] == u'XW':
         continents["Multiple Cities"].append(("Multiple", comp['city'], comp['name'], comp['start_date'], comp['end_date'], comp['url']))
     else:
         continents[iso2country_continent[comp['country_iso2']][1]].append((iso2country_continent[comp['country_iso2']][0], 

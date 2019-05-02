@@ -181,7 +181,7 @@ def compareRecords(records_json_folder, export_folder, persons_dict):
 
     wr_type = "single_records_world"
     for event in all_records_new[wr_type].keys():
-        if all_records_new[wr_type][event] != all_records_past[wr_type][event]:
+        if sorted(all_records_new[wr_type][event]) != sorted(all_records_past[wr_type][event]):
             if len(all_records_new[wr_type][event]) > 1:
                     current_wrs = set(tuple(x) for x in all_records_new[wr_type][event])
                     past_wrs = set(tuple(x) for x in all_records_past[wr_type][event])
@@ -247,9 +247,14 @@ def compareRecords(records_json_folder, export_folder, persons_dict):
                     current = set(tuple(x) for x in all_records_new[cr_type][continent][event])
                     past = set(tuple(x) for x in map(lambda x: [x[0], x[1]], all_records_diff["World"][event]))
                     new = current - past
-                    if len(new) == 0:
-                        print "CR average is also a WR!"
-                if len(new) != 0:
+                    print "-----"
+                    print current
+                    print past
+                    print new
+                    print "-----"
+                if len(new) == 0:
+                    print "CR average is also a WR!"
+                else:
                     if len(all_records_new[cr_type][continent][event]) > 1:
                             current_crs = set(tuple(x) for x in all_records_new[cr_type][continent][event])
                             past_crs = set(tuple(x) for x in all_records_past[cr_type][continent][event])
