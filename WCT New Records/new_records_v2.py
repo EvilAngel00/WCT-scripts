@@ -8,8 +8,6 @@
 ################################################
 
 import requests, datetime, os, urllib2, zipfile, pprint, json, codecs
-# pip install ruamel.yaml
-import ruamel.yaml as yaml
 # pip install pytz
 import pytz
 # pip install python-dateutil
@@ -45,7 +43,8 @@ def extract(zip_file, destination):
         zip_ref.extractall(destination)
     print "Extraction complete!"
 
-
+# Get the list of comps that happened up to "days_ago" number
+# of days
 def getLatestComps(export_folder, days_ago):
     today = datetime.datetime.today()
     year = int(today.strftime('%Y'))
@@ -66,17 +65,20 @@ def getLatestComps(export_folder, days_ago):
                 comps.append(line[0])
     f.close()
     
+    # Concatenate with the comps that didn't have results up last week
     comps_without_results = [line.rstrip('\n') for line in open('comps_without_results.txt')][:-1]
     comps = list(set(comps + comps_without_results))
     
     return comps
 
+# Write comps without results to file
 def saveComps(comps):
     f = open('comps_without_results.txt', 'w+')
     for comp in comps:
         f.write(comp + '\n')
     f.close()
 
+# Get the list of new records from the comps in the past days
 def getNewRecords(export_folder, comps):
     records = []
     comps_with_results = []
@@ -94,6 +96,7 @@ def getNewRecords(export_folder, comps):
     
     return records
 
+# Format and sort the records
 def formatNewRecords(new_records):
     record_type_continent = {'AfR': 'Africa', 'AsR': 'Asia', 'ER': 'Europe', 'NAR': 'North America', 'SAR': 'South America', 'OcR': 'Oceania'}
     formatted_new_records = []
@@ -113,7 +116,8 @@ def formatNewRecords(new_records):
             formatted_new_records.append([record[6], record[1], record[5], "Average", record[16].rstrip(), record[8]])
 
     return sortNewRecords(formatted_new_records)
-    
+
+# Sort by type of record, continent/country, event, Single/Average
 def sortNewRecords(formatted_new_records):
     record_sort_order = {"WR": 0, "CR": 1, "NR": 2}
     event_sort_order = {"333":0, "222":1, "444":2, "555":3, "666":4, "777":5, "333bf":6, "333fm":7, "333oh":8, "333ft":9, "clock":10, "minx":11, "pyram":12, "skewb":13, "sq1":14, "444bf":15, "555bf":16, "333mbf":17}
@@ -253,17 +257,22 @@ else:
     downloadFile(url)
     file_time = datetime.datetime.fromtimestamp(os.path.getmtime(file))
     extract(file, export_folder)
+    comps = getLatestComps(export_folder, 7)
+    new_records = getNewRecords(export_folder, comps)
+    formatted_new_records = formatNewRecords(new_records)
+    events_dict = getEvents(export_folder)
+    writeRecords(formatted_new_records, events_dict)
 
 # If the database is newer, download and compare to local records
 if url_date > utc.localize(file_time):
     print "Local WCA Database Export is older than server - Downloading now"
     downloadFile(url)
     extract(file, export_folder)
-else:
-    print "Local WCA Database Export is the latest version"
     comps = getLatestComps(export_folder, 7)
     new_records = getNewRecords(export_folder, comps)
     formatted_new_records = formatNewRecords(new_records)
     events_dict = getEvents(export_folder)
     writeRecords(formatted_new_records, events_dict)
+else:
+    print "Local WCA Database Export is the latest version"
 
