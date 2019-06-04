@@ -46,25 +46,19 @@ def extract(zip_file, destination):
 # Get the list of comps that happened up to "days_ago" number
 # of days
 def getLatestComps(export_folder, days_ago):
-    today = datetime.datetime.today()
-    year = int(today.strftime('%Y'))
-    month = int(today.strftime('%m'))
-    day = int(today.strftime('%d'))
-
+    today = datetime.datetime.today().date()
     week_ago = today - datetime.timedelta(days=7)
-    year_week_ago = int(week_ago.strftime('%Y'))
-    month_week_ago = int(week_ago.strftime('%m'))
-    day_week_ago = int(week_ago.strftime('%d'))    
-
+    
     comps = []
     with open(export_folder + "/WCA_export_Competitions.tsv") as f:
         next(f)
         for line in f:
             line = line.split('\t')
-            if((int(line[5]) in range(year_week_ago, year+1)) and (int(line[6]) in range(month_week_ago, month+1)) and (int(line[7]) in range(day_week_ago, day+1))):
+            comp_date = datetime.datetime.strptime(line[5] + "-" + line[6] + "-" + line[7], '%Y-%m-%d').date()
+            if(comp_date > week_ago and comp_date < today):
                 comps.append(line[0])
     f.close()
-    
+
     # Concatenate with the comps that didn't have results up last week
     comps_without_results = [line.rstrip('\n') for line in open('comps_without_results.txt')][:-1]
     comps = list(set(comps + comps_without_results))
@@ -275,4 +269,9 @@ if url_date > utc.localize(file_time):
     writeRecords(formatted_new_records, events_dict)
 else:
     print "Local WCA Database Export is the latest version"
+    comps = getLatestComps(export_folder, 7)
+    new_records = getNewRecords(export_folder, comps)
+    formatted_new_records = formatNewRecords(new_records)
+    events_dict = getEvents(export_folder)
+    writeRecords(formatted_new_records, events_dict)
 
