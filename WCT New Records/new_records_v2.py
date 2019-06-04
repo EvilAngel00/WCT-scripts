@@ -4,7 +4,7 @@
 # Author: Rui Reis                             #
 # Contact: rreis@worldcubeassociation.org      #
 # Date Created: 31 May 2019                    #
-# Last Version: 31 May 2019                    #
+# Last Version: 04 June 2019                   #
 ################################################
 
 import requests, datetime, os, urllib2, zipfile, pprint, json, codecs
