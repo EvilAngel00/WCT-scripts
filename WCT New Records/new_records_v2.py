@@ -47,7 +47,7 @@ def extract(zip_file, destination):
 # of days
 def getLatestComps(export_folder, days_ago):
     today = datetime.datetime.today().date()
-    week_ago = today - datetime.timedelta(days=7)
+    week_ago = today - datetime.timedelta(days=days_ago)
     
     comps = []
     with open(export_folder + "/WCA_export_Competitions.tsv") as f:
@@ -269,9 +269,11 @@ if url_date > utc.localize(file_time):
     writeRecords(formatted_new_records, events_dict)
 else:
     print "Local WCA Database Export is the latest version"
+    '''
     comps = getLatestComps(export_folder, 7)
     new_records = getNewRecords(export_folder, comps)
     formatted_new_records = formatNewRecords(new_records)
     events_dict = getEvents(export_folder)
     writeRecords(formatted_new_records, events_dict)
+    '''
 
